@@ -3,12 +3,28 @@
 </head>
 
 <body>
+
+  {{> image_add_form}}
     <h1>Welcome to ImageShare!</h1>
     <div class="container">
         {{> images}}
 
     </div>
 </body>
+
+<template name="image_add_form">
+  <form class="js-add-image">
+      <input type="text" name="img_src" />
+      <br/>
+      <input type="text" name="img_alt" />
+      <button class="btn btn-success">save</button>
+
+
+
+  </form>
+
+
+</template>
 
 <template name="images">
     <div class="row">
