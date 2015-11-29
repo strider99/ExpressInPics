@@ -76,6 +76,7 @@
                 <div class="caption">
                     <h3>Rating: {{rating}}</h3>
                     <p>{{img_alt}}</p>
+                    <p>Uploaded by: <h4 class="text-info">{{getUser createdBy}}</h4></p>
                     <p>{{>starsRating mutable=true class="js-rate-image" id=_id}}</p>
                     <button class="js-del-image btn btn-danger">Delete</button>
                 </div>
