@@ -5,19 +5,19 @@
 <body>
 
     {{> image_add_form}}
-          
-          <nav class="navbar navbar-default navbar-fixed-top">
-          <div class="container">
-              
-               {{> loginButtons}}
-          </div>
-              
-          </nav>
-           
-           
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+
+            {{> loginButtons}}
+        </div>
+
+    </nav>
+
+
     <div class="container">
-    <h1>Welcome to ExpressInPics {{username}}!</h1>
-<!--           <br/>-->
+        <h1>Welcome to ExpressInPics {{username}}!</h1>
+        <!--           <br/>-->
         {{> images}}
 
     </div>
@@ -40,7 +40,7 @@
 
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="img_alt" placeholder="Attribution"/>
+                            <input type="text" class="form-control" name="img_alt" placeholder="Attribution" />
 
                         </div>
 
@@ -64,10 +64,10 @@
 </template>
 
 <template name="images">
-      {{#if currentUser}}
+    {{#if currentUser}}
     <button class="btn btn-success js-show-image-form">Add Image</button>
     {{/if}}
-   
+
     <div class="row">
         {{#each imgarray}}
         <div class="col-xs-12 col-md-3" id="{{_id}}">
@@ -76,7 +76,13 @@
                 <div class="caption">
                     <h3>Rating: {{rating}}</h3>
                     <p>{{img_alt}}</p>
-                    <p>Uploaded by: <h4 class="text-info">{{getUser createdBy}}</h4></p>
+
+                    <p>
+                        Uploaded by:
+                        <h4 class="text-info">
+                        <a href="#" class="js-set-image-filter">{{getUser createdBy}}</a>
+                        </h4>
+                    </p>
                     <p>{{>starsRating mutable=true class="js-rate-image" id=_id}}</p>
                     <button class="js-del-image btn btn-danger">Delete</button>
                 </div>
