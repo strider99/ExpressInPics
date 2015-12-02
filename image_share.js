@@ -4,6 +4,28 @@ Images = new Mongo.Collection("images");
 
 if (Meteor.isClient) {
 
+    Session.set("imageLimit", 8);
+    lastScrollTop = 0;
+
+    $(window).scroll(function (event) {
+
+
+        //whether we are on the bottom of the window
+        if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+
+            //our present position
+            var scrollTop = $(this).scrollTop();
+            //whether we are going down or not
+            if(scrollTop > lastScrollTop){
+                Session.set("imageLimit",  Session.get("imageLimit") + 4);
+            }
+
+
+
+            lastScrollTop = scrollTop;
+        }
+    });
+
     Accounts.ui.config({
         passwordSignupFields: "USERNAME_AND_EMAIL"
     });
@@ -12,48 +34,49 @@ if (Meteor.isClient) {
     Template.images.helpers({
         imgarray: function () {
             if (Session.get("userFilter")) {
-                return Images.find({createdBy: Session.get("userFilter")}, {
-                        sort: {
-                            createdOn: -1,
-                            rating: -1
-                        }
-                    })
+                return Images.find({
+                    createdBy: Session.get("userFilter")
+                }, {
+                    sort: {
+                        createdOn: -1,
+                        rating: -1
+                    }
+                })
 
             } else {
                 return Images.find({}, {
                     sort: {
                         createdOn: -1,
                         rating: -1
-                    }
+                    },
+                    limit: Session.get("imageLimit")
                 })
             }
 
         },
-        
-        filtering_images: function() {
-            
-            if (Session.get("userFilter")){
+
+        filtering_images: function () {
+
+            if (Session.get("userFilter")) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
-            
+
         },
-        getFilterUser: function() {
-            if (Session.get("userFilter")){
+        getFilterUser: function () {
+            if (Session.get("userFilter")) {
                 var user = Meteor.users.findOne({
-                _id: Session.get("userFilter")
-            });
+                    _id: Session.get("userFilter")
+                });
                 return user.username;
-            }
-            else {
+            } else {
                 return false;
             }
-            
+
         },
 
-            getUser: function (user_id) {
+        getUser: function (user_id) {
             var user = Meteor.users.findOne({
                 _id: user_id
             });
