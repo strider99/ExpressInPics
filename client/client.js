@@ -1,8 +1,4 @@
-Images = new Mongo.Collection("images");
 
-
-
-if (Meteor.isClient) {
 
     Session.set("imageLimit", 8);
     lastScrollTop = 0;
@@ -160,4 +156,3 @@ if (Meteor.isClient) {
         }
     });
 
-}
